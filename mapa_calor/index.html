@@ -42,8 +42,7 @@
         <script src="js/leaflet-measure.js"></script>
         <script src="data/ejidoCente_1.js"></script>
         <script src="data/manchaurbana2021_2.js"></script>
-        <script src="data/Siniestroscondatos_3.js"></script>
-        <script src="data/Siniestrosmapadecalor_4.js"></script>
+        <script src="data/Siniestrosmapa_calor_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -52,7 +51,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-38.839781201749446,-68.14926378529279],[-38.827110896438825,-68.12376802807592]]);
+        }).fitBounds([[-38.855011546045176,-68.18574395031871],[-38.80433032480269,-68.08607716207607]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -296,7 +295,7 @@
         });
         bounds_group.addLayer(layer_manchaurbana2021_2);
         map.addLayer(layer_manchaurbana2021_2);
-        function pop_Siniestroscondatos_3(feature, layer) {
+        function pop_Siniestrosmapa_calor_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -329,86 +328,7 @@
                         <td colspan="2">' + (feature.properties['tipo'] !== null ? autolinker.link(String(feature.properties['tipo']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['lon'] !== null ? autolinker.link(String(feature.properties['lon']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['lat'] !== null ? autolinker.link(String(feature.properties['lat']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_Siniestroscondatos_3_0() {
-            return {
-                pane: 'pane_Siniestroscondatos_3',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(183,72,75,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Siniestroscondatos_3');
-        map.getPane('pane_Siniestroscondatos_3').style.zIndex = 403;
-        map.getPane('pane_Siniestroscondatos_3').style['mix-blend-mode'] = 'normal';
-        var layer_Siniestroscondatos_3 = new L.geoJson(json_Siniestroscondatos_3, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Siniestroscondatos_3',
-            layerName: 'layer_Siniestroscondatos_3',
-            pane: 'pane_Siniestroscondatos_3',
-            onEachFeature: pop_Siniestroscondatos_3,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Siniestroscondatos_3_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Siniestroscondatos_3);
-        map.addLayer(layer_Siniestroscondatos_3);
-        function pop_Siniestrosmapadecalor_4(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['fecha'] !== null ? autolinker.link(String(feature.properties['fecha']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['hora'] !== null ? autolinker.link(String(feature.properties['hora']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ubicacion'] !== null ? autolinker.link(String(feature.properties['ubicacion']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['vehiculos'] !== null ? autolinker.link(String(feature.properties['vehiculos']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['tipo'] !== null ? autolinker.link(String(feature.properties['tipo']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['descripcio'] !== null ? autolinker.link(String(feature.properties['descripcio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['lon'] !== null ? autolinker.link(String(feature.properties['lon']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -424,22 +344,21 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        map.createPane('pane_Siniestrosmapadecalor_4');
-        map.getPane('pane_Siniestrosmapadecalor_4').style.zIndex = 404;
-        map.getPane('pane_Siniestrosmapadecalor_4').style['mix-blend-mode'] = 'multiply';
-        var Siniestrosmapadecalor_4_hm = geoJson2heat(json_Siniestrosmapadecalor_4,
+        map.createPane('pane_Siniestrosmapa_calor_3');
+        map.getPane('pane_Siniestrosmapa_calor_3').style.zIndex = 403;
+        map.getPane('pane_Siniestrosmapa_calor_3').style['mix-blend-mode'] = 'multiply';
+        var Siniestrosmapa_calor_3_hm = geoJson2heat(json_Siniestrosmapa_calor_3,
                                       '');
-        var layer_Siniestrosmapadecalor_4 = new L.heatLayer(Siniestrosmapadecalor_4_hm, {
+        var layer_Siniestrosmapa_calor_3 = new L.heatLayer(Siniestrosmapa_calor_3_hm, {
             attribution: '',
             interactive: true,
-            radius: 36,
+            radius: 34,
             max: 1,
             minOpacity: 1,
             gradient: {0: '#fff5f0', 0.13: '#fee0d2', 0.26: '#fcbba1', 0.39: '#fc9272', 0.52: '#fb6a4a', 0.65: '#ef3b2c', 0.78: '#cb181d', 0.9: '#a50f15', 1: '#67000d'}});
-        bounds_group.addLayer(layer_Siniestrosmapadecalor_4);
-        map.addLayer(layer_Siniestrosmapadecalor_4);
+        bounds_group.addLayer(layer_Siniestrosmapa_calor_3);
+        map.addLayer(layer_Siniestrosmapa_calor_3);
         var overlaysTree = [
-            {label: '<img src="legend/Siniestroscondatos_3.png" /> Siniestros con datos', layer: layer_Siniestroscondatos_3},
             {label: '<img src="legend/manchaurbana2021_2.png" /> mancha urbana 2021', layer: layer_manchaurbana2021_2},
             {label: '<img src="legend/ejidoCente_1.png" /> ejido Cente', layer: layer_ejidoCente_1},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]
@@ -474,12 +393,5 @@
             resetLabels([layer_manchaurbana2021_2]);
         });
         </script>
-<div style="position: absolute; bottom: 20px; left: 20px; background-color: rgba(255,255,255,0.85); padding: 5px 10px; font-size: 12px; border-radius: 4px; border: 1px solid #ccc; z-index: 999;">
-    Datos: mayo-julio 2025
-</div>
-<div style="position: absolute; bottom: 50px; left: 20px; background-color: rgba(255,255,255,0.85); padding: 5px 10px; font-size: 12px; border-radius: 4px; border: 1px solid #ccc; z-index: 999;">
-    Elaboración cartográfica: Germán Gabriel Pérez
-</div>
-
     </body>
 </html>
