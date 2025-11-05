@@ -50,7 +50,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-38.957834135238805,-68.26685274490939],[-38.755109250268866,-67.86818559193875]]);
+        }).fitBounds([[-38.86483342378354,-68.17653740810681],[-38.81415220254105,-68.07538182774937]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -309,6 +309,9 @@
             });
             var popupContent = '<table>\
                     <tr>\
+                        <td colspan="2">' + (feature.properties['caso_id'] !== null ? autolinker.link(String(feature.properties['caso_id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
                         <th scope="row">fecha</th>\
                         <td>' + (feature.properties['fecha'] !== null ? autolinker.link(String(feature.properties['fecha']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -331,6 +334,18 @@
                     <tr>\
                         <th scope="row">descripcio</th>\
                         <td>' + (feature.properties['descripcio'] !== null ? autolinker.link(String(feature.properties['descripcio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['alcohol'] !== null ? autolinker.link(String(feature.properties['alcohol']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fuente'] !== null ? autolinker.link(String(feature.properties['fuente']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['longitud'] !== null ? autolinker.link(String(feature.properties['longitud']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['latitud'] !== null ? autolinker.link(String(feature.properties['latitud']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
