@@ -41,7 +41,7 @@
         <script src="js/leaflet-measure.js"></script>
         <script src="data/ejidoCente_1.js"></script>
         <script src="data/manchaurbana2021_2.js"></script>
-        <script src="data/Siniestrosmapa_calor_3.js"></script>
+        <script src="data/Siniestrostodoshastaenero_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -50,7 +50,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-38.85580138544445,-68.1779391946072],[-38.805120164201966,-68.07678361424976]]);
+        }).fitBounds([[-38.83713373359713,-68.1364622986822],[-38.83673778655617,-68.13568365189906]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -294,7 +294,7 @@
         });
         bounds_group.addLayer(layer_manchaurbana2021_2);
         map.addLayer(layer_manchaurbana2021_2);
-        function pop_Siniestrosmapa_calor_3(feature, layer) {
+        function pop_Siniestrostodoshastaenero_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -361,40 +361,40 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Siniestrosmapa_calor_3_0() {
+        function style_Siniestrostodoshastaenero_3_0() {
             return {
-                pane: 'pane_Siniestrosmapa_calor_3',
+                pane: 'pane_Siniestrostodoshastaenero_3',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/Siniestrosmapa_calor_3.svg',
+            iconUrl: 'markers/Siniestrostodoshastaenero_3.svg',
             iconSize: [21.279999999999998, 21.279999999999998]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_Siniestrosmapa_calor_3');
-        map.getPane('pane_Siniestrosmapa_calor_3').style.zIndex = 403;
-        map.getPane('pane_Siniestrosmapa_calor_3').style['mix-blend-mode'] = 'normal';
-        var layer_Siniestrosmapa_calor_3 = new L.geoJson(json_Siniestrosmapa_calor_3, {
+        map.createPane('pane_Siniestrostodoshastaenero_3');
+        map.getPane('pane_Siniestrostodoshastaenero_3').style.zIndex = 403;
+        map.getPane('pane_Siniestrostodoshastaenero_3').style['mix-blend-mode'] = 'normal';
+        var layer_Siniestrostodoshastaenero_3 = new L.geoJson(json_Siniestrostodoshastaenero_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Siniestrosmapa_calor_3',
-            layerName: 'layer_Siniestrosmapa_calor_3',
-            pane: 'pane_Siniestrosmapa_calor_3',
-            onEachFeature: pop_Siniestrosmapa_calor_3,
+            dataVar: 'json_Siniestrostodoshastaenero_3',
+            layerName: 'layer_Siniestrostodoshastaenero_3',
+            pane: 'pane_Siniestrostodoshastaenero_3',
+            onEachFeature: pop_Siniestrostodoshastaenero_3,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_Siniestrosmapa_calor_3_0(feature));
+                return L.marker(latlng, style_Siniestrostodoshastaenero_3_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Siniestrosmapa_calor_3);
-        map.addLayer(layer_Siniestrosmapa_calor_3);
+        bounds_group.addLayer(layer_Siniestrostodoshastaenero_3);
+        map.addLayer(layer_Siniestrostodoshastaenero_3);
         var overlaysTree = [
-            {label: '<img src="legend/Siniestrosmapa_calor_3.png" />  Siniestros (mapa_calor)', layer: layer_Siniestrosmapa_calor_3},
+            {label: '<img src="legend/Siniestrostodoshastaenero_3.png" />  Siniestros todos hasta enero', layer: layer_Siniestrostodoshastaenero_3},
             {label: '<img src="legend/manchaurbana2021_2.png" /> mancha urbana 2021', layer: layer_manchaurbana2021_2},
             {label: '<img src="legend/ejidoCente_1.png" /> ejido Cente', layer: layer_ejidoCente_1},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]

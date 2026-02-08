@@ -42,7 +42,7 @@
         <script src="js/leaflet-measure.js"></script>
         <script src="data/ejidoCente_1.js"></script>
         <script src="data/manchaurbana2021_2.js"></script>
-        <script src="data/Siniestrosmapa_calor_3.js"></script>
+        <script src="data/Siniestrosmapa_calortodoshastaenero_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -51,7 +51,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-38.86211298734641,-68.17361508403827],[-38.81143176610392,-68.07394829579563]]);
+        }).fitBounds([[-38.83713373359713,-68.1364622986822],[-38.83673778655617,-68.13568365189906]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -295,7 +295,7 @@
         });
         bounds_group.addLayer(layer_manchaurbana2021_2);
         map.addLayer(layer_manchaurbana2021_2);
-        function pop_Siniestrosmapa_calor_3(feature, layer) {
+        function pop_Siniestrosmapa_calortodoshastaenero_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -359,20 +359,20 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        map.createPane('pane_Siniestrosmapa_calor_3');
-        map.getPane('pane_Siniestrosmapa_calor_3').style.zIndex = 403;
-        map.getPane('pane_Siniestrosmapa_calor_3').style['mix-blend-mode'] = 'multiply';
-        var Siniestrosmapa_calor_3_hm = geoJson2heat(json_Siniestrosmapa_calor_3,
+        map.createPane('pane_Siniestrosmapa_calortodoshastaenero_3');
+        map.getPane('pane_Siniestrosmapa_calortodoshastaenero_3').style.zIndex = 403;
+        map.getPane('pane_Siniestrosmapa_calortodoshastaenero_3').style['mix-blend-mode'] = 'multiply';
+        var Siniestrosmapa_calortodoshastaenero_3_hm = geoJson2heat(json_Siniestrosmapa_calortodoshastaenero_3,
                                       '');
-        var layer_Siniestrosmapa_calor_3 = new L.heatLayer(Siniestrosmapa_calor_3_hm, {
+        var layer_Siniestrosmapa_calortodoshastaenero_3 = new L.heatLayer(Siniestrosmapa_calortodoshastaenero_3_hm, {
             attribution: '',
             interactive: true,
             radius: 36,
             max: 1,
             minOpacity: 1,
             gradient: {0: '#fff5f0', 0.13: '#fee0d2', 0.26: '#fcbba1', 0.39: '#fc9272', 0.52: '#fb6a4a', 0.65: '#ef3b2c', 0.78: '#cb181d', 0.9: '#a50f15', 1: '#67000d'}});
-        bounds_group.addLayer(layer_Siniestrosmapa_calor_3);
-        map.addLayer(layer_Siniestrosmapa_calor_3);
+        bounds_group.addLayer(layer_Siniestrosmapa_calortodoshastaenero_3);
+        map.addLayer(layer_Siniestrosmapa_calortodoshastaenero_3);
         var overlaysTree = [
             {label: '<img src="legend/manchaurbana2021_2.png" /> mancha urbana 2021', layer: layer_manchaurbana2021_2},
             {label: '<img src="legend/ejidoCente_1.png" /> ejido Cente', layer: layer_ejidoCente_1},
