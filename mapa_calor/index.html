@@ -51,7 +51,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-38.859868732723044,-68.18853541150297],[-38.80918751148056,-68.08737983114553]]);
+        }).fitBounds([[-38.86211298734641,-68.17361508403827],[-38.81143176610392,-68.07394829579563]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -345,6 +345,12 @@
                     <tr>\
                         <td colspan="2">' + (feature.properties['latitud'] !== null ? autolinker.link(String(feature.properties['latitud']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['heridos'] !== null ? autolinker.link(String(feature.properties['heridos']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fallecidos'] !== null ? autolinker.link(String(feature.properties['fallecidos']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -361,7 +367,7 @@
         var layer_Siniestrosmapa_calor_3 = new L.heatLayer(Siniestrosmapa_calor_3_hm, {
             attribution: '',
             interactive: true,
-            radius: 34,
+            radius: 36,
             max: 1,
             minOpacity: 1,
             gradient: {0: '#fff5f0', 0.13: '#fee0d2', 0.26: '#fcbba1', 0.39: '#fc9272', 0.52: '#fb6a4a', 0.65: '#ef3b2c', 0.78: '#cb181d', 0.9: '#a50f15', 1: '#67000d'}});
