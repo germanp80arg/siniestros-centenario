@@ -48,22 +48,43 @@ nav a:hover {
 
 .grafico-item {
     display: flex;
-    align-items: center;
-    gap: 30px;
+    align-items: flex-start;
+    gap: 20px;
     margin-bottom: 35px;
 }
 
 .grafico-item img {
-    width: 58%;
+    width: 70%;
+    max-width: 70%;
+    height: auto;
+    flex-shrink: 0;
     border: 1px solid #ccc;
     border-radius: 6px;
 }
 
 .grafico-texto {
-    flex: 1;
+    flex: 0 0 26%;
+    max-width: 26%;
     text-align: left;
     font-size: 1.05em;
     line-height: 1.6;
+}
+        @media (max-width: 750px) {
+    .grafico-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .grafico-item img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .grafico-texto {
+        flex: none;
+        max-width: 100%;
+        width: 100%;
+    }
 }
         .descripcion {
     margin-top: 20px;
