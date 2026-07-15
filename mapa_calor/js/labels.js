@@ -60,3 +60,54 @@ function addLabel(layer, id) {
       }
   }
 }
+
+// Ajuste manual del mapa de calor para mejorar la continuidad visual.
+window.addEventListener('load', function () {
+    if (typeof map === 'undefined' ||
+        typeof layer_Siniestrosmapa_calortodoshastaenero_3 === 'undefined' ||
+        typeof layer_Siniestrosmapa_calortodoshastaenero_3.setOptions !== 'function') {
+        return;
+    }
+
+    function ajustarCalorAlZoom() {
+        var zoom = map.getZoom();
+        var radius = 40;
+        var blur = 30;
+
+        if (zoom === 14) {
+            radius = 46;
+            blur = 34;
+        } else if (zoom === 15) {
+            radius = 54;
+            blur = 38;
+        } else if (zoom === 16) {
+            radius = 64;
+            blur = 44;
+        } else if (zoom >= 17) {
+            radius = 78;
+            blur = 52;
+        }
+
+        layer_Siniestrosmapa_calortodoshastaenero_3.setOptions({
+            radius: radius,
+            blur: blur,
+            maxZoom: 17,
+            minOpacity: 0.15,
+            gradient: {
+                0.00: '#ffffb2',
+                0.25: '#fed976',
+                0.50: '#feb24c',
+                0.70: '#fd8d3c',
+                0.85: '#f03b20',
+                1.00: '#bd0026'
+            }
+        });
+
+        if (typeof layer_Siniestrosmapa_calortodoshastaenero_3.redraw === 'function') {
+            layer_Siniestrosmapa_calortodoshastaenero_3.redraw();
+        }
+    }
+
+    ajustarCalorAlZoom();
+    map.on('zoomend', ajustarCalorAlZoom);
+});
