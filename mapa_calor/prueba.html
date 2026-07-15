@@ -25,27 +25,51 @@
     <iframe id="mapa" src="index.html" title="Mapa de calor de prueba"></iframe>
 
     <script>
-        const mapa = document.getElementById('mapa');
+        const mapaIframe = document.getElementById('mapa');
 
-        mapa.addEventListener('load', function () {
-            const ventanaMapa = mapa.contentWindow;
+        mapaIframe.addEventListener('load', function () {
+            const ventanaMapa = mapaIframe.contentWindow;
+            const mapaLeaflet = ventanaMapa.map;
             const capaCalor = ventanaMapa.layer_Siniestrosmapa_calortodoshastaenero_3;
 
-            if (!capaCalor || typeof capaCalor.setOptions !== 'function') {
-                console.error('No fue posible localizar la capa de calor del mapa original.');
+            if (!mapaLeaflet || !capaCalor || typeof capaCalor.setOptions !== 'function') {
+                console.error('No fue posible localizar el mapa o la capa de calor original.');
                 return;
             }
 
-            capaCalor.setOptions({
-                radius: 40,
-                blur: 30,
-                maxZoom: 17,
-                minOpacity: 0.15
-            });
+            function ajustarCalorAlZoom() {
+                const zoom = mapaLeaflet.getZoom();
+                let radius = 40;
+                let blur = 30;
 
-            if (typeof capaCalor.redraw === 'function') {
-                capaCalor.redraw();
+                if (zoom === 14) {
+                    radius = 46;
+                    blur = 34;
+                } else if (zoom === 15) {
+                    radius = 54;
+                    blur = 38;
+                } else if (zoom === 16) {
+                    radius = 64;
+                    blur = 44;
+                } else if (zoom >= 17) {
+                    radius = 78;
+                    blur = 52;
+                }
+
+                capaCalor.setOptions({
+                    radius: radius,
+                    blur: blur,
+                    maxZoom: 17,
+                    minOpacity: 0.15
+                });
+
+                if (typeof capaCalor.redraw === 'function') {
+                    capaCalor.redraw();
+                }
             }
+
+            ajustarCalorAlZoom();
+            mapaLeaflet.on('zoomend', ajustarCalorAlZoom);
         });
     </script>
 </body>
