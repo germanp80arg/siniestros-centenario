@@ -97,3 +97,38 @@ window.addEventListener('load', function () {
     reemplazarTextosDelControl();
     window.setTimeout(reemplazarTextosDelControl, 250);
 });
+
+// Pestañas para alternar entre los dos mapas.
+window.addEventListener('load', function () {
+    var contenedor = document.createElement('div');
+    contenedor.style.position = 'fixed';
+    contenedor.style.top = '10px';
+    contenedor.style.left = '50%';
+    contenedor.style.transform = 'translateX(-50%)';
+    contenedor.style.zIndex = '1000';
+    contenedor.style.display = 'flex';
+    contenedor.style.background = 'rgba(255,255,255,0.95)';
+    contenedor.style.border = '1px solid #888';
+    contenedor.style.borderRadius = '6px';
+    contenedor.style.overflow = 'hidden';
+    contenedor.style.boxShadow = '0 1px 5px rgba(0,0,0,0.35)';
+    contenedor.style.fontFamily = 'Arial, sans-serif';
+
+    function crearPestana(texto, enlace, activa) {
+        var a = document.createElement('a');
+        a.textContent = texto;
+        a.href = enlace;
+        a.style.padding = '8px 14px';
+        a.style.textDecoration = 'none';
+        a.style.fontSize = '14px';
+        a.style.fontWeight = activa ? 'bold' : 'normal';
+        a.style.color = activa ? '#ffffff' : '#333333';
+        a.style.background = activa ? '#b30000' : '#ffffff';
+        a.style.borderRight = activa ? '1px solid #b30000' : '1px solid #cccccc';
+        return a;
+    }
+
+    contenedor.appendChild(crearPestana('Mapa de calor', '../mapa_calor/index.html', false));
+    contenedor.appendChild(crearPestana('Mapa con datos', 'index.html', true));
+    document.body.appendChild(contenedor);
+});
