@@ -60,3 +60,40 @@ function addLabel(layer, id) {
       }
   }
 }
+
+// Nombres legibles de las capas y metadatos en español.
+document.documentElement.lang = 'es';
+document.title = 'Mapa de hechos de tránsito - Centenario';
+
+window.addEventListener('load', function () {
+    function reemplazarTextosDelControl() {
+        var control = document.querySelector('.leaflet-control-layers');
+        if (!control) {
+            return;
+        }
+
+        var cambios = {
+            'Siniestros todos hasta enero': 'Hechos de tránsito registrados',
+            'mancha urbana 2021': 'Área urbana',
+            'ejido Cente': 'Límite municipal',
+            'OSM Standard': 'Mapa base'
+        };
+        var walker = document.createTreeWalker(control, NodeFilter.SHOW_TEXT, null);
+        var nodos = [];
+
+        while (walker.nextNode()) {
+            nodos.push(walker.currentNode);
+        }
+
+        nodos.forEach(function (nodo) {
+            var texto = nodo.nodeValue;
+            Object.keys(cambios).forEach(function (nombreAnterior) {
+                texto = texto.replace(nombreAnterior, cambios[nombreAnterior]);
+            });
+            nodo.nodeValue = texto;
+        });
+    }
+
+    reemplazarTextosDelControl();
+    window.setTimeout(reemplazarTextosDelControl, 250);
+});
