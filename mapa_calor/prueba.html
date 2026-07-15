@@ -60,7 +60,15 @@
                     radius: radius,
                     blur: blur,
                     maxZoom: 17,
-                    minOpacity: 0.15
+                    minOpacity: 0.15,
+                    gradient: {
+                        0.00: '#ffffb2',
+                        0.25: '#fed976',
+                        0.50: '#feb24c',
+                        0.70: '#fd8d3c',
+                        0.85: '#f03b20',
+                        1.00: '#bd0026'
+                    }
                 });
 
                 if (typeof capaCalor.redraw === 'function') {
