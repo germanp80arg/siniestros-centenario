@@ -111,3 +111,39 @@ window.addEventListener('load', function () {
     ajustarCalorAlZoom();
     map.on('zoomend', ajustarCalorAlZoom);
 });
+
+// Nombres legibles de las capas y metadatos en español.
+document.documentElement.lang = 'es';
+document.title = 'Mapa de calor de siniestros viales - Centenario';
+
+window.addEventListener('load', function () {
+    function reemplazarTextosDelControl() {
+        var control = document.querySelector('.leaflet-control-layers');
+        if (!control) {
+            return;
+        }
+
+        var cambios = {
+            'mancha urbana 2021': 'Área urbana',
+            'ejido Cente': 'Límite municipal',
+            'OSM Standard': 'Mapa base'
+        };
+        var walker = document.createTreeWalker(control, NodeFilter.SHOW_TEXT, null);
+        var nodos = [];
+
+        while (walker.nextNode()) {
+            nodos.push(walker.currentNode);
+        }
+
+        nodos.forEach(function (nodo) {
+            var texto = nodo.nodeValue;
+            Object.keys(cambios).forEach(function (nombreAnterior) {
+                texto = texto.replace(nombreAnterior, cambios[nombreAnterior]);
+            });
+            nodo.nodeValue = texto;
+        });
+    }
+
+    reemplazarTextosDelControl();
+    window.setTimeout(reemplazarTextosDelControl, 250);
+});
