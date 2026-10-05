@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba con filtros - Mapa de siniestros viales - Centenario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+    <script defer data-domain="germanp80arg.github.io" src="https://plausible.io/js/script.js"></script>
+
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f5f5f5; color: #333; }
+        header { background: linear-gradient(90deg, #005c97, #363795); color: white; padding: 15px 20px;
+                 display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .logo h1 { margin: 0; font-size: 1.8em; display: flex; align-items: center; }
+        .logo h1 i { margin-right: 10px; }
+        nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.4em;
+            padding: 14px 20px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        nav a:hover { background-color: rgba(255, 255, 255, 0.2); }
+        nav a i { margin-right: 6px; }
+        main { padding: 30px 20px; }
+        section { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px;
+                  max-width: 1000px; margin: auto; position: relative; }
+        iframe { width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 6px; }
+        .graficos { margin-top: 35px; }
+        .graficos h3 { text-align: center; font-size: 1.4em; margin-bottom: 25px; }
+        .grafico-item { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 35px; }
+        .grafico-item img { width: 70%; max-width: 70%; height: auto; flex-shrink: 0; border: 1px solid #ccc; border-radius: 6px; }
+        .grafico-texto { flex: 0 0 26%; max-width: 26%; text-align: left; font-size: 1.05em; line-height: 1.6; }
+        @media (max-width: 750px) {
+            .grafico-item { flex-direction: column; gap: 15px; }
+            .grafico-item img { width: 100%; max-width: 100%; }
+            .grafico-texto { flex: none; max-width: 100%; width: 100%; }
+        }
+        .descripcion {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            text-align: justify;
+            font-size: 1.3em;
+        }
+        .etiqueta { position: absolute; bottom: 20px; left: 20px; background-color: rgba(255,255,255,0.9);
+                    padding: 5px 10px; font-size: 0.85em; border: 1px solid #ccc; border-radius: 4px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .aviso-prueba {
+            max-width: 1000px;
+            margin: 0 auto 15px auto;
+            padding: 10px 14px;
+            border-radius: 6px;
+            background: #fff4d6;
+            border: 1px solid #e3c66c;
+            font-size: 0.95em;
+        }
+        footer { text-align: center; padding: 20px; background-color: #e9e9e9; color: #666; font-size: 0.9em; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h1><i class="fas fa-map-marked-alt"></i> Mapas Centenario - Germán Gabriel Pérez · CONICET / UNCo</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a onclick="loadMap('mapa_calor/index.html')"><i class="fas fa-fire"></i> Mapa de calor</a></li>
+            <li><a onclick="loadMap('prueba_filtros.html')"><i class="fas fa-car-crash"></i> Con datos + filtros</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="aviso-prueba"><strong>Versión de prueba:</strong> mantiene la página completa y reemplaza únicamente el visor “Con datos” por la versión filtrable. La página pública original no fue modificada.</div>
+    <section>
+        <h2><i class="fas fa-car-crash"></i> Visualizador Interactivo</h2>
+        <div class="descripcion">
+            <p>
+                Este sitio presenta un relevamiento ciudadano de los siniestros viales ocurridos en la ciudad de Centenario (Neuquén, Argentina) durante los meses de mayo de 2025 a abril de 2026. La información fue recopilada de manera manual a partir de noticias difundidas en medios digitales locales —principalmente Centenario Digital— y publicaciones en redes sociales.
+            </p>
+            <p>
+                El objetivo del mapa es visibilizar la frecuencia, localización y características básicas de los hechos de tránsito, con fines informativos y exploratorios. No se trata de un registro oficial ni exhaustivo, y puede contener omisiones o errores derivados de las fuentes utilizadas.
+            </p>
+            <p>
+                La sistematización de la base, la georreferenciación, la elaboración cartográfica y el análisis fueron realizados por el investigador Germán Gabriel Pérez (CONICET / UNCo), como parte de un proyecto de ciencia abierta y datos públicos. Se agradece la difusión y el uso responsable de esta información.
+            </p>
+        </div>
+
+        <p style="margin-top: 30px;">Seleccioná en el menú superior qué mapa deseás explorar.</p>
+
+        <div style="position: relative;">
+            <iframe id="visor" src="prueba_filtros.html"></iframe>
+            <div class="etiqueta">Datos: mayo 2025 - abril 2026</div>
+            <div class="etiqueta" style="bottom: 50px;">Elaboración cartográfica: Germán Gabriel Pérez</div>
+        </div>
+
+        <div class="graficos">
+            <h3><i class="fas fa-chart-bar"></i> Análisis descriptivo de los datos</h3>
+
+            <div class="grafico-item">
+                <img src="graficos/grafico1.png?v=3" alt="Distribución de tipos de hechos de tránsito">
+                <div class="grafico-texto">
+                    <h4>1. Distribución de tipos de hechos de tránsito</h4>
+                    <p>
+                        Los choques fueron, por amplio margen, el tipo de hecho más frecuente: 162 de los 207 casos registrados, equivalentes a poco más del 78% del total. También se identificaron 17 hechos agrupados como “Otros”, 12 vuelcos, 10 atropellos y 6 derrapes o caídas. La composición general muestra que la siniestralidad local está dominada por las colisiones entre vehículos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grafico-item">
+                <img src="graficos/grafico2.png?v=3" alt="Hechos de tránsito por día de la semana">
+                <div class="grafico-texto">
+                    <h4>2. Hechos de tránsito por día de la semana</h4>
+                    <p>
+                        Los viernes y sábados fueron los días con mayor cantidad de registros, con 39 hechos cada uno. En conjunto concentraron 78 casos, aproximadamente el 38% del total anual. El lunes también presentó un valor elevado, con 32 hechos, mientras que jueves y domingo registraron las cifras más bajas, con 23 casos cada uno.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grafico-item">
+                <img src="graficos/grafico3.png?v=3" alt="Evolución diaria de los hechos de tránsito">
+                <div class="grafico-texto">
+                    <h4>3. Evolución diaria de los hechos de tránsito</h4>
+                    <p>
+                        La evolución diaria muestra que los hechos no se concentraron solamente en algunos episodios excepcionales, sino que se distribuyeron de manera persistente durante todo el año. La mayoría de los días con registros presentó uno o dos casos, aunque se observan períodos de mayor intensidad y jornadas donde coincidieron diferentes tipos de hechos. Hacia el final del período se advierte un aumento de la frecuencia, especialmente durante marzo y abril de 2026.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grafico-item">
+                <img src="graficos/grafico4.png?v=3" alt="Hechos en Ruta 7 y resto de la ciudad por mes">
+                <div class="grafico-texto">
+                    <h4>4. Hechos en Ruta 7 y resto de la ciudad por mes</h4>
+                    <p>
+                        La Ruta 7, incluyendo la primera, segunda y tercera rotonda, concentró 81 de los 207 hechos registrados, aproximadamente el 39% del total anual. Su participación fue sostenida durante gran parte del período y alcanzó su mayor valor en marzo de 2026, con 14 casos. Estos resultados confirman que la Ruta 7 y sus rotondas constituyen el principal corredor de concentración de hechos de tránsito de Centenario.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grafico-item">
+                <img src="graficos/grafico5.png?v=3" alt="Casos con alcoholemia positiva por día de la semana">
+                <div class="grafico-texto">
+                    <h4>5. Casos con alcoholemia positiva por día de la semana</h4>
+                    <p>
+                        En la base anual se registraron 19 casos con alcoholemia positiva o negativa a realizar el control. De ellos, 13 ocurrieron durante sábado o domingo, cerca del 68% del total. La concentración durante el fin de semana, sumada al predominio previamente observado en horarios nocturnos y de madrugada, muestra un patrón temporal claro asociado al consumo de alcohol al volante.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Mapas Centenario. Germán Gabriel Pérez - CONICET / UNCo. Relevamiento ciudadano de siniestros viales. Fuente periodística principal: Centenario Digital. Fuentes complementarias: otros medios locales y redes sociales. No es un registro oficial.</p>
+</footer>
+
+<script>
+    function loadMap(url) {
+        document.getElementById('visor').src = url;
+    }
+</script>
+
+</body>
+</html>
