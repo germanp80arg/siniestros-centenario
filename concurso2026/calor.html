@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapa de calor | Siniestros viales en Centenario</title>
+<link rel="stylesheet" href="../condatos/css/leaflet.css">
+<style>
+html,body,#map{width:100%;height:100%;margin:0}
+body{font-family:Arial,Helvetica,sans-serif}
+.info{position:absolute;z-index:1000;top:14px;right:14px;max-width:265px;background:rgba(255,255,255,.96);padding:12px 14px;border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.22);color:#263238}
+.info strong{display:block;font-size:16px;margin-bottom:4px}
+.info span{font-size:11px;line-height:1.4;color:#5f6d74}
+@media(max-width:600px){.info{left:10px;right:10px;top:10px;max-width:none}}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="info"><strong>Concentración espacial</strong><span>Mapa de calor elaborado con los 207 hechos registrados entre mayo de 2025 y abril de 2026. Las áreas más intensas representan mayor concentración de registros.</span></div>
+
+<script src="../condatos/js/leaflet.js"></script>
+<script src="../condatos/js/leaflet-heat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="../condatos/data/ejidoCente_1.js"></script>
+<script src="../condatos/data/manchaurbana2021_2.js"></script>
+<script>
+const map=L.map('map',{zoomControl:true,minZoom:1,maxZoom:20}).setView([-38.828,-68.132],13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom:19,opacity:.84,attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+if(typeof json_ejidoCente_1!=='undefined'){
+  L.geoJSON(json_ejidoCente_1,{interactive:false,style:{color:'#455a64',weight:2,dashArray:'6,4',fillOpacity:0}}).addTo(map);
+}
+if(typeof json_manchaurbana2021_2!=='undefined'){
+  L.geoJSON(json_manchaurbana2021_2,{interactive:false,style:{color:'#78909c',weight:1.5,dashArray:'7,5',fillOpacity:0}}).addTo(map);
+}
+
+Papa.parse('datos_207.csv',{
+  download:true,
+  header:true,
+  skipEmptyLines:true,
+  complete:function(result){
+    const pts=result.data.map(function(p){
+      return [Number(p.latitud),Number(p.longitud),1];
+    }).filter(function(p){
+      return Number.isFinite(p[0])&&Number.isFinite(p[1]);
+    });
+    L.heatLayer(pts,{radius:25,blur:20,maxZoom:16,minOpacity:.25}).addTo(map);
+  }
+});
+</script>
+</body>
+</html>
