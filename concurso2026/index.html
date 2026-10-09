@@ -20,7 +20,9 @@
   section{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:22px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
   h2{margin:0 0 12px;font-size:1.35rem}
   p{line-height:1.58}
-  .working{background:#fff8df;border:1px solid #ead58c;border-radius:8px;padding:10px 12px;font-size:.9rem;margin-bottom:16px}
+  .map-switch{display:flex;gap:10px;margin:0 0 12px}
+  .map-switch button{border:1px solid #b9c7ce;background:#fff;color:var(--blue);font-weight:700;padding:9px 14px;border-radius:7px;cursor:pointer}
+  .map-switch button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
   iframe{width:100%;height:670px;border:1px solid #cbd5da;border-radius:8px;background:#eef2f3}
   .source-box{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
   .source-item{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.91rem;line-height:1.45}
@@ -62,8 +64,11 @@
 
   <section id="explorar">
     <h2>Explorador interactivo</h2>
-    <div class="working"><strong>Versión de trabajo:</strong> la interfaz y el gráfico dinámico ya están operativos. Antes de la postulación se sincronizará este visor con la base anual publicada de 207 casos.</div>
-    <iframe src="explorador.html" title="Explorador interactivo de siniestros viales"></iframe>
+    <div class="map-switch">
+      <button id="btnCalor" onclick="loadMap('calor.html',this)">Mapa de calor</button>
+      <button id="btnDatos" class="active" onclick="loadMap('explorador.html',this)">Con datos y filtros</button>
+    </div>
+    <iframe id="visor" src="explorador.html" title="Explorador interactivo de siniestros viales"></iframe>
     <div class="source-box">
       <div class="source-item"><strong>Base abierta</strong>Conjunto de datos publicado en el Repositorio Institucional CONICET Digital.<br><a href="https://hdl.handle.net/11336/299091" target="_blank" rel="noopener">Handle 11336/299091</a></div>
       <div class="source-item"><strong>Fuentes del relevamiento</strong>Noticias y publicaciones de acceso público de medios locales, con predominio de Centenario Digital. Las fuentes específicas se documentan en la base y en los registros individuales cuando están disponibles.</div>
@@ -119,5 +124,12 @@
   </section>
 </main>
 <footer>Nodo 7 · Visualización preparada para el Concurso Contar con Datos 2026</footer>
+<script>
+function loadMap(url,button){
+  document.getElementById('visor').src=url;
+  document.querySelectorAll('.map-switch button').forEach(function(b){b.classList.remove('active')});
+  if(button) button.classList.add('active');
+}
+</script>
 </body>
 </html>
