@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siniestros viales en Centenario | Exploración interactiva</title>
+<style>
+  :root{--blue:#245a78;--blue2:#31436c;--ink:#263238;--muted:#5f6d74;--soft:#f4f7f8;--line:#dfe5e8;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f5f6;color:var(--ink)}
+  header{background:linear-gradient(105deg,var(--blue),var(--blue2));color:#fff;padding:26px 20px}
+  .head{max-width:1080px;margin:auto;display:flex;justify-content:space-between;gap:25px;align-items:flex-end}
+  h1{font-size:2rem;line-height:1.1;margin:0 0 8px}
+  .lead{margin:0;max-width:760px;line-height:1.5;color:#eef5f8}
+  .pseudo{white-space:nowrap;font-size:.92rem;border:1px solid rgba(255,255,255,.45);padding:7px 10px;border-radius:18px}
+  nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  nav div{max-width:1080px;margin:auto;display:flex;gap:22px;padding:10px 20px}
+  nav a{color:var(--blue);font-weight:700;text-decoration:none;font-size:.93rem}
+  main{max-width:1080px;margin:24px auto;padding:0 20px}
+  section{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:22px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  h2{margin:0 0 12px;font-size:1.35rem}
+  p{line-height:1.58}
+  .working{background:#fff8df;border:1px solid #ead58c;border-radius:8px;padding:10px 12px;font-size:.9rem;margin-bottom:16px}
+  iframe{width:100%;height:670px;border:1px solid #cbd5da;border-radius:8px;background:#eef2f3}
+  .source-box{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .source-item{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.91rem;line-height:1.45}
+  .source-item strong{display:block;margin-bottom:3px}
+  .source-item a{color:var(--blue)}
+  .graphs h3{text-align:center;margin:5px 0 25px}
+  .graph{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(220px,1fr);gap:22px;align-items:start;margin:0 0 34px}
+  .graph img{width:100%;border:1px solid #ccd5da;border-radius:8px}
+  .graph h4{margin:2px 0 8px;font-size:1.03rem}
+  .graph p{margin:0;font-size:.96rem}
+  .method{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+  .method ul{margin:8px 0;padding-left:20px;line-height:1.55}
+  footer{text-align:center;color:#68777e;padding:10px 20px 35px;font-size:.85rem}
+  @media(max-width:760px){
+    .head{display:block}.pseudo{display:inline-block;margin-top:14px}
+    nav div{overflow:auto}
+    iframe{height:780px}
+    .source-box,.method,.graph{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="head">
+    <div>
+      <h1>Siniestros viales en Centenario</h1>
+      <p class="lead">Exploración territorial de hechos de tránsito registrados entre mayo de 2025 y abril de 2026 a partir de fuentes públicas locales.</p>
+    </div>
+    <div class="pseudo">Seudónimo: Nodo 7</div>
+  </div>
+</header>
+<nav><div><a href="#explorar">Explorar</a><a href="#anual">Resultados anuales</a><a href="#metodo">Metodología</a></div></nav>
+<main>
+  <section>
+    <h2>¿Qué muestra esta visualización?</h2>
+    <p>El sitio reúne, sistematiza y georreferencia información pública sobre siniestros viales ocurridos en la ciudad de Centenario (Neuquén). El objetivo es facilitar una lectura espacial y temporal del fenómeno, permitiendo explorar patrones de localización, tipos de hechos y diferencias según mes, día de la semana y sector de la ciudad.</p>
+    <p>Se trata de un relevamiento ciudadano con fines informativos y exploratorios. No constituye un registro oficial ni exhaustivo y puede contener omisiones derivadas de las fuentes disponibles.</p>
+  </section>
+
+  <section id="explorar">
+    <h2>Explorador interactivo</h2>
+    <div class="working"><strong>Versión de trabajo:</strong> la interfaz y el gráfico dinámico ya están operativos. Antes de la postulación se sincronizará este visor con la base anual publicada de 207 casos.</div>
+    <iframe src="explorador.html" title="Explorador interactivo de siniestros viales"></iframe>
+    <div class="source-box">
+      <div class="source-item"><strong>Base abierta</strong>Conjunto de datos publicado en el Repositorio Institucional CONICET Digital.<br><a href="https://hdl.handle.net/11336/299091" target="_blank" rel="noopener">Handle 11336/299091</a></div>
+      <div class="source-item"><strong>Fuentes del relevamiento</strong>Noticias y publicaciones de acceso público de medios locales, con predominio de Centenario Digital. Las fuentes específicas se documentan en la base y en los registros individuales cuando están disponibles.</div>
+    </div>
+  </section>
+
+  <section id="anual" class="graphs">
+    <h2>Resultados del período anual</h2>
+    <h3>Mayo de 2025 – abril de 2026 · 207 casos</h3>
+
+    <div class="graph">
+      <img src="../graficos/grafico1.png?v=3" alt="Distribución de tipos de hechos de tránsito">
+      <div><h4>1. Tipos de hechos</h4><p>Los choques fueron el tipo de hecho predominante: 162 de los 207 casos registrados, algo más del 78% del total. También se identificaron 17 casos agrupados como “Otros”, 12 vuelcos, 10 atropellos y 6 derrapes o caídas.</p></div>
+    </div>
+
+    <div class="graph">
+      <img src="../graficos/grafico2.png?v=3" alt="Hechos por día de la semana">
+      <div><h4>2. Día de la semana</h4><p>Viernes y sábados registraron 39 hechos cada uno. En conjunto concentraron 78 casos, aproximadamente el 38% del total anual. El lunes presentó 32 hechos, mientras que jueves y domingo registraron 23 cada uno.</p></div>
+    </div>
+
+    <div class="graph">
+      <img src="../graficos/grafico3.png?v=3" alt="Evolución diaria de hechos de tránsito">
+      <div><h4>3. Evolución temporal</h4><p>Los registros se distribuyeron de manera persistente durante el año, con jornadas de mayor intensidad y un incremento de la frecuencia hacia marzo y abril de 2026.</p></div>
+    </div>
+
+    <div class="graph">
+      <img src="../graficos/grafico4.png?v=3" alt="Hechos en Ruta 7 y resto de la ciudad">
+      <div><h4>4. Ruta 7 y resto de la ciudad</h4><p>La Ruta 7, incluyendo la primera, segunda y tercera rotonda, concentró 81 de los 207 hechos registrados: aproximadamente el 39% del total anual. Marzo de 2026 presentó el máximo mensual sobre este corredor, con 14 casos.</p></div>
+    </div>
+
+    <div class="graph">
+      <img src="../graficos/grafico5.png?v=3" alt="Casos con alcoholemia positiva por día de la semana">
+      <div><h4>5. Alcoholemia y fin de semana</h4><p>Se registraron 19 casos con alcoholemia positiva o negativa a realizar el control. Trece ocurrieron durante sábado o domingo, cerca del 68% de estos registros.</p></div>
+    </div>
+  </section>
+
+  <section id="metodo">
+    <h2>Metodología y alcance</h2>
+    <div class="method">
+      <div>
+        <p>Los casos fueron identificados a partir de información publicada en medios digitales locales y redes sociales. Cada registro fue sistematizado en una base estructurada con variables temporales, localización, tipo de hecho, vehículos involucrados, descripción y otros atributos disponibles. La ubicación fue georreferenciada y revisada cartográficamente para su representación en un sistema de información geográfica y posterior publicación web.</p>
+        <p>La visualización combina cartografía interactiva, filtros y gráficos descriptivos para facilitar tanto la exploración de casos individuales como la identificación de patrones generales.</p>
+      </div>
+      <div>
+        <strong>Aspectos a tener en cuenta</strong>
+        <ul>
+          <li>La información depende de la cobertura de las fuentes consultadas.</li>
+          <li>La ausencia de un dato no implica necesariamente que el hecho no haya ocurrido.</li>
+          <li>Los resultados son descriptivos y no permiten inferir causalidad.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Nodo 7 · Visualización preparada para el Concurso Contar con Datos 2026</footer>
+</body>
+</html>
