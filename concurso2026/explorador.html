@@ -56,7 +56,7 @@
           <option value="Choque">Choques</option>
           <option value="Atropello">Atropellos</option>
           <option value="Vuelco">Vuelcos</option>
-          <option value="Derrape / caída / despiste">Derrapes / caídas / despistes</option>
+          <option value="Derrape / caída">Derrapes / caídas</option>
           <option value="Otros">Otros</option>
         </select>
       </div>
@@ -104,7 +104,7 @@
   </aside>
 </div>
 
-<script src="../condatos/js/leaflet.js"></script>
+<script src="../condatos/js/leaflet.js"></script>\n<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="../condatos/data/ejidoCente_1.js"></script>
 <script src="../condatos/data/manchaurbana2021_2.js"></script>
 <script src="../condatos/data/Siniestrostodoshastaenero_3.js"></script>
@@ -121,7 +121,7 @@
     L.geoJSON(json_manchaurbana2021_2,{interactive:false,style:{color:'#78909c',weight:1.5,dashArray:'7,5',fillOpacity:0}}).addTo(map);
   }
 
-  const allFeatures = json_Siniestrostodoshastaenero_3.features || [];
+  let allFeatures = [];
   let accidentLayer = null;
   const monthNames = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const dayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
@@ -129,19 +129,21 @@
   function norm(v){ return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   function broadType(f){
     const t=norm(f.properties?.tipo);
+    if(t.includes('choque')||t.includes('colision')) return 'Choque';
     if(t.includes('atropell')) return 'Atropello';
     if(t.includes('vuelco')) return 'Vuelco';
-    if(t.includes('derrape')||t.includes('caida')||t.includes('despiste')||t.includes('desvio')) return 'Derrape / caída / despiste';
-    if(t.includes('choque')||t.includes('colision')) return 'Choque';
+    if(t==='derrape'||t.startsWith('caida')) return 'Derrape / caída';
     return 'Otros';
   }
   function dateObj(f){
     const v=f.properties?.fecha;
-    return v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? new Date(v+'T12:00:00') : null;
+    if(!v) return null;
+    const m=String(v).match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})$/);
+    return m ? new Date(Number(m[1]),Number(m[2])-1,Number(m[3]),12) : null;
   }
   function monthKey(f){
-    const v=f.properties?.fecha;
-    return v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.slice(0,7) : null;
+    const d=dateObj(f);
+    return d ? d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0') : null;
   }
   function isRoute7(f){
     const s=norm(f.properties?.ubicacion);
@@ -166,6 +168,8 @@
       '<tr><th>Vehículos</th><td>'+safe(p.vehiculos)+'</td></tr>'+
       '<tr><th>Descripción</th><td>'+safe(p.descripcio)+'</td></tr>'+
       '<tr><th>Alcohol</th><td>'+safe(p.alcohol)+'</td></tr>'+
+      '<tr><th>Heridos</th><td>'+safe(p.heridos)+'</td></tr>'+
+      '<tr><th>Fallecidos</th><td>'+safe(p.fallecidos)+'</td></tr>'+
       '<tr><th>Fuente</th><td>'+sourceHtml(p.fuente)+'</td></tr>'+
       '</table>';
   }
@@ -254,14 +258,26 @@
     renderBars(visible);
   }
 
-  populateMonths();
   ['filterType','filterMonth','filterDay','filterSector'].forEach(id=>document.getElementById(id).addEventListener('change',render));
   document.getElementById('chartDimension').addEventListener('change',()=>renderBars(allFeatures.filter(f=>matches(f,filters()))));
   document.getElementById('resetFilters').addEventListener('click',()=>{
     ['filterType','filterMonth','filterDay','filterSector'].forEach(id=>document.getElementById(id).value='all');
     render();
   });
-  render();
+  Papa.parse('datos_207.csv',{
+    download:true,
+    header:true,
+    skipEmptyLines:true,
+    complete:function(result){
+      allFeatures=result.data.map(function(p){
+        return {type:'Feature',properties:p,geometry:{type:'Point',coordinates:[Number(p.longitud),Number(p.latitud)]}};
+      }).filter(function(f){
+        return Number.isFinite(f.geometry.coordinates[0]) && Number.isFinite(f.geometry.coordinates[1]);
+      });
+      populateMonths();
+      render();
+    }
+  });
 </script>
 </body>
 </html>
